@@ -1,0 +1,5 @@
+praw
+groq
+python-dotenv
+requests
+beautifulsoup4
