@@ -1,0 +1,48 @@
+name: RES Automation Cycle
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Chaque nuit à minuit
+  workflow_dispatch: # Permet le lancement manuel
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          if [ -f bot/requirements.txt ]; then
+            pip install -r bot/requirements.txt
+          elif [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "Requirements file not found!" && exit 1
+          fi
+
+      - name: Run System
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          if [ -f bot/main.py ]; then
+            python bot/main.py
+          elif [ -f main.py ]; then
+            python main.py
+          else
+            echo "main.py not found!" && exit 1
+          fi
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "RES Bot"
+          git config --global user.email "bot@res.automation"
+          git add .
+          git commit -m "🤖 Auto-update guides: $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git push
