@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allGuides = await getCollection('guides');
+---
+
+<Layout title="RES Intelligence - Guides Experts">
+	<h1>📚 Bibliothèque de Solutions Experts</h1>
+	<p>Analyses synthétiques de problèmes réels, loin du bruit de l'IA générique.</p>
+	<hr style="margin: 2rem 0;" />
+	<ul>
+		{allGuides.map(guide => (
+			<li style="margin-bottom: 1rem;">
+				<a href={`/guides/${guide.slug}`} style="font-size: 1.2rem; font-weight: bold;">{guide.data.title}</a>
+				<br />
+				<small>Publié le {guide.data.date}</small>
+			</li>
+		))}
+	</ul>
+</Layout>
