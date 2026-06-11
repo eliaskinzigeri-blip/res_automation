@@ -1,0 +1,21 @@
+---
+const { title } = Astro.props;
+---
+<nav class="flex flex-col gap-6">
+    <div class="flex items-center gap-2 py-4">
+        <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
+            R
+        </div>
+        <span class="text-xl font-bold tracking-tight text-slate-900">RES Intelligence</span>
+    </div>
+
+    <div class="flex flex-col gap-2">
+        <a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-all">Accueil</a>
+        <a href="/guides" class="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-all">Guides Experts</a>
+    </div>
+
+    <div class="mt-auto pt-6 border-t border-slate-200">
+        <p class="text-xs text-slate-400">© 2026 RES Automation</p>
+        <p class="text-xs text-slate-400 mt-1">Expert Lab Edition</p>
+    </div>
+</nav>
